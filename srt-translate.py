@@ -8,6 +8,7 @@
 
 import time
 import os
+import sys
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -45,14 +46,10 @@ each sentence in the context of the dialogue surrounding it, and make a sane and
 logical translation. If a sentence is ambiguous, provide the most likely
 translation based on the context.
 
-The SRT is from the Anime TV series Attack on Titan. Please use any additional
-knowledge you have about this series to provide adequate translations, where
-the subtitles alone would be ambiguous. Always translate "Titans" as "titaner".
-Always translate "Scout Corps" as "scoutkåren". Always translate "Wall Rose" as
-"Muren Rose", and similar for the other walls.
-
 Good luck!
 """
+
+    print(f"Translating {input_file_path}")
 
     # Read the content of the input file
     with open(input_file_path, 'r') as input_file:
@@ -85,7 +82,9 @@ Good luck!
 
 # Main
 
-input_file = 'input.srt'
-output_file = 'output.srt'
+# Get input file name from command line arguments
+input_file = sys.argv[1]
+
+output_file = input_file + "-out"
 
 translate_srt(input_file, output_file)
